@@ -57,5 +57,24 @@ def get_rating(rating_id: str):
     }), 200
 
 
+@app.get("/ratings")
+def list_ratings():
+    """List all ratings."""
+    ratings = list(store._ratings.values())
+    return jsonify({
+        "count": len(ratings),
+        "ratings": [
+            {
+                "id": r.id,
+                "product_id": r.product_id,
+                "score": r.score,
+                "comment": r.comment,
+                "created_at": r.created_at.isoformat()
+            }
+            for r in ratings
+        ]
+    }), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
