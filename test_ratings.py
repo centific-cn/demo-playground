@@ -159,6 +159,33 @@ class TestAPIEndpoints:
         data = response.get_json()
         assert "error" in data
 
+    def test_list_ratings_empty(self, client):
+        """GET /ratings returns empty list when no ratings."""
+        response = client.get("/ratings")
+        assert response.status_code == 200
+        data = response.get_json()
+        assert data["count"] == 0
+        assert data["ratings"] == []
+
+    def test_list_ratings_with_data(self, client):
+        """GET /ratings returns all ratings."""
+        # Create two ratings
+        client.post("/ratings", json={"product_id": "prod-1", "score": 5})
+        client.post("/ratings", json={"product_id": "prod-2", "score": 3})
+
+        response = client.get("/ratings")
+        assert response.status_code == 200
+        data = response.get_json()
+        assert data["count"] == 2
+        assert len(data["ratings"]) == 2
+
+
+@pytest.fixture(autouse=True)
+def clear_store():
+    """Clear rating store before each test."""
+    store._ratings.clear()
+    yield
+
 
 @pytest.fixture
 def client():
