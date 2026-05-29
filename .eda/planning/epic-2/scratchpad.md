@@ -1,3 +1,23 @@
+---
+planning_agent_state: FAILED
+tree_complete: false
+planner_rationale_log:
+- at: '2026-05-29T08:31:04.517324+00:00'
+  focus_issue: 2
+  new_state: FAILED
+  text: 'Classification: recovery_or_hitl — The root epic #2 was closed externally while its child issue #4 (FIP phase) remains
+    open in the scratchpad. This violates the normal merge-close flow where specialists complete work via merged PRs that
+    close their task issues before the parent can advance. The breakdown handoff correctly identifies this as a recovery_or_hitl
+    situation with next_phase DONE, but the tree is inconsistent. No agent dispatch is appropriate; I mark the planning state
+    as FAILED and post a comment requesting human clarification on whether to reopen and complete the workflow or reconcile
+    the scratchpad to reflect the external closure.'
+  breakdown:
+    classification: recovery_or_hitl
+    granularity: atomic
+    next_phase: DONE
+updated_at: '2026-05-29T08:31:05.485491+00:00'
+---
+
 # Product Rating API - Feature Implementation Plan (FIP)
 
 ## Overview
